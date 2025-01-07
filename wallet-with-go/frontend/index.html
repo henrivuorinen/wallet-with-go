@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Machine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="login-section">
+    <h2>Login</h2>
+    <form id="login-form">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+    </form>
+    <button id="show-register">Register</button>
+</div>
+
+<div id="register-section" style="display: none;">
+    <h2>Register</h2>
+    <form id="register-form">
+        <input type="text" id="new-username" placeholder="Username" required />
+        <input type="password" id="new-password" placeholder="Password" required />
+        <button type="submit">Register</button>
+    </form>
+    <button id="show-login">Back to Login</button>
+</div>
+
+<div id="game-section" style="display: none;">
+    <h2>Welcome, <span id="user-name"></span>!</h2>
+    <p>Balance: <span id="balance">0</span></p>
+    <button id="purchase-balance">Add Balance</button>
+    <div id="slot-machine">
+        <div id="wheel1" class="wheel">🔵</div>
+        <div id="wheel2" class="wheel">🔵</div>
+        <div id="wheel3" class="wheel">🔵</div>
+    </div>
+    <button id="spin">Play</button>
+    <p id="message"></p>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

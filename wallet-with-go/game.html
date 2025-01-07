@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Slot Machine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .wheel {
+            width: 100px;
+            height: 100px;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 2rem;
+            font-weight: bold;
+            background: #e3e3e3;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Simple Slot Machine</h1>
+
+    <div id="login-section">
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Username" required><br><br>
+            <input type="password" id="password" placeholder="Password" required><br><br>
+            <button type="submit" class="button">Login</button>
+            <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+        </form>
+    </div>
+
+    <div id="register-section" style="display: none;">
+        <h2>Register</h2>
+        <form id="register-form">
+            <input type="text" id="new-username" placeholder="Username" required><br><br>
+            <input type="password" id="new-password" placeholder="Password" required><br><br>
+            <button type="submit" class="button">Register</button>
+            <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+        </form>
+    </div>
+
+    <div id="game-section" style="display: none;">
+        <h2>Welcome, <span id="user-name"></span>!</h2>
+        <p>Balance: <span id="balance">0</span></p>
+        <button class="button" id="purchase-balance">More Balance</button>
+        <div class="slot-machine">
+            <div class="wheel" id="wheel1">?</div>
+            <div class="wheel" id="wheel2">?</div>
+            <div class="wheel" id="wheel3">?</div>
+        </div>
+        <button class="button" id="spin">Play</button>
+        <div class="message" id="message"></div>
+    </div>
+</div>
+
+<script>
+    const loginSection = document.getElementById('login-section');
+    const registerSection = document.getElementById('register-section');
+    const gameSection = document.getElementById('game-section');
+    const balanceElement = document.getElementById('balance');
+    const userNameElement = document.getElementById('user-name');
+    const messageElement = document.getElementById('message');
+
+    let balance = 0;
+
+    // Switch between login and register
+    document.getElementById('show-register').addEventListener('click', () => {
+        loginSection.style.display = 'none';
+        registerSection.style.display = 'block';
+    });
+
+    document.getElementById('show-login').addEventListener('click', () => {
+        registerSection.style.display = 'none';
+        loginSection.style.display = 'block';
+    });
+
+    // Handle login
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        // Placeholder login logic
+        console.log('Logging in with', username, password);
+        loginSection.style.display = 'none';
+        gameSection.style.display = 'block';
+        userNameElement.textContent = username;
+    });
+
+    // Handle registration
+    document.getElementById('register-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('new-username').value;
+        const password = document.getElementById('new-password').value;
+        // Placeholder registration logic
+        console.log('Registering', username, password);
+        registerSection.style.display = 'none';
+        loginSection.style.display = 'block';
+    });
+
+    // Handle purchase balance
+    document.getElementById('purchase-balance').addEventListener('click', () => {
+        balance += 10; // Placeholder logic
+        balanceElement.textContent = balance;
+    });
+
+    // Handle spin
+    document.getElementById('spin').addEventListener('click', () => {
+        if (balance < 1) {
+            messageElement.textContent = 'Not enough balance to play!';
+            return;
+        }
+        balance--;
+        balanceElement.textContent = balance;
+
+        const symbols = ['🔵', '🔺', '⭐', '⬛'];
+        const wheel1 = symbols[Math.floor(Math.random() * symbols.length)];
+        const wheel2 = symbols[Math.floor(Math.random() * symbols.length)];
+        const wheel3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+        document.getElementById('wheel1').textContent = wheel1;
+        document.getElementById('wheel2').textContent = wheel2;
+        document.getElementById('wheel3').textContent = wheel3;
+
+        if (wheel1 === wheel2 && wheel2 === wheel3) {
+            const winnings = 50; // Placeholder winnings
+            balance += winnings;
+            balanceElement.textContent = balance;
+            messageElement.textContent = `You win! Added ${winnings} to your balance.`;
+        } else {
+            messageElement.textContent = 'Try again!';
+        }
+    });
+</script>
+</body>
+</html>
